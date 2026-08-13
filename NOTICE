@@ -1,0 +1,6 @@
+MedDeID
+Copyright 2026 Stig Hellemans and contributors
+
+This repository contains documentation for the independently versioned
+components of the MedDeID suite. Model weights, datasets, and component source
+code are distributed separately under the terms stated with each artifact.
