@@ -10,13 +10,13 @@ Normal CLI and Python inference run locally. Hugging Face is contacted to downlo
 
 Sensitive information can appear in more than the source note:
 
-- imported canonical JSONL;
+- imported data files;
 - annotation assignments and autosaves;
 - curation decision logs;
 - model predictions and redacted text;
-- metadata, source-ID maps, and HMAC keys;
+- project metadata, private source-ID maps, and project keys;
 - application logs, crash reports, and shell history;
-- caches, backups, manifests, and evaluation examples.
+- caches, backups, run records, and evaluation examples.
 
 Apply access control, encryption, retention, backup, and deletion policy to every derived artifact according to its actual content—not its filename.
 
@@ -33,7 +33,7 @@ Evaluate at least:
 - performance by document type and source system;
 - uncommon names, addresses, identifiers, and formatting;
 - effects of OCR, copied text, templates, and encoding;
-- changes after model, profile, or preprocessing updates.
+- changes after model, language-rule, or text-processing updates.
 
 High aggregate performance can conceal a weak subgroup or rare identifier type. Define the risk model before choosing thresholds and review policy.
 

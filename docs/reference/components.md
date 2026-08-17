@@ -23,7 +23,10 @@ Language-neutral schema, taxonomy, ordered model labels, normalization, and offs
 <div class="component-card" markdown>
 ### `meddeid-language-nl`
 
-Dutch parsing and rendering rules, `nl-BE` post-processing, and versioned Belgian lookup resources.
+The current Dutch language package: parsing and rendering rules, `nl-BE`
+post-processing, semantic subannotation capability, and versioned Belgian
+lookup resources shared by those capabilities. Other languages can provide
+equivalent packages through the same profile boundaries.
 
 **Install:** `pip install meddeid-language-nl`
 </div>
@@ -71,7 +74,11 @@ Optional multi-annotator comparison, explicit reconciliation decisions, and audi
 <div class="component-card" markdown>
 ### `meddeid-subannotate`
 
-Gold-only core-PII character subannotation and checksummed benchmark-bundle export.
+Gold-only core-PII character subannotation and checksummed benchmark-bundle
+export. It is language-neutral by default and discovers optional semantic
+profiles registered by installed `meddeid-language-*` packages. A workspace
+persists its selection and requires a backed-up migration to change it after
+review begins.
 
 **Run:** Node.js 20+ or its Dockerfile
 </div>

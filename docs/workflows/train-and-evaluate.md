@@ -1,8 +1,8 @@
 # Train and evaluate
 
-Use reviewed development data to fit a model. Keep an independent test set sealed until the final evaluation.
+Use reviewed development data to train a model. Keep a separate test set untouched until the final evaluation.
 
-## Prepare split-safe views
+## Prepare data and protect the test set
 
 <span class="source-label">Owner: meddeid-data</span>
 
@@ -12,15 +12,15 @@ meddeid-data project prepare-training my-project \
   --test-gold evaluation/meddeid-dutch-synthetic-benchmark.jsonl
 ```
 
-This validates completion, document membership, text identity, labels, spans, and lineage before writing three views:
+This checks that the reviewed files belong to the project and prepares three folders for training and evaluation:
 
 | View | Purpose |
 |---|---|
-| `prepared/fit` | One ordinary train/validation/test experiment |
-| `prepared/selection` | Select an epoch count without access to test gold |
-| `prepared/refit` | Recombine development data, refit, and evaluate once on sealed test gold |
+| `prepared/fit` | Run one ordinary training experiment |
+| `prepared/selection` | Decide how long to train without looking at test answers |
+| `prepared/refit` | Train on all development data and evaluate once on the separate test set |
 
-## Ordinary research fit
+## Ordinary training run
 
 <span class="source-label">Owner: meddeid-training</span>
 
@@ -33,11 +33,11 @@ meddeid-train fit \
   --run runs/fit
 ```
 
-Validation chooses the best checkpoint. Test evaluation occurs after fitting. The result is `runs/fit/checkpoints/best.pt`.
+Validation chooses the best saved model. Test evaluation happens after training. The result is `runs/fit/checkpoints/best.pt`.
 
 ## Publication protocol
 
-For a release-quality experiment, separate epoch selection from full-development-data refitting:
+For a release-quality experiment, first use validation data to choose how long to train. Then start fresh, train on all development data, and evaluate once on the separate test set:
 
 ```bash
 meddeid-train select-epochs \
@@ -57,7 +57,7 @@ meddeid-train export \
   --output release/my-model
 ```
 
-Selection and refit restart independently from the configured initial model. Refit does not continue from the selection checkpoint. The exported directory is a self-contained bundle for `meddeid`.
+Both runs start independently from the configured initial model. The final run does not continue from the earlier one. The exported directory contains everything `meddeid` needs to use the model.
 
 ## Evaluate predictions
 
@@ -71,7 +71,7 @@ meddeid batch prepared/refit/test.jsonl \
   --output predictions/test.jsonl
 ```
 
-Then score the canonical prediction file:
+Then score the prediction file:
 
 ```bash
 meddeid-eval score \
@@ -79,19 +79,19 @@ meddeid-eval score \
   --predictions predictions/test.jsonl
 ```
 
-The report includes exact-span precision, recall, and F1; character coverage; core-PII recall when reviewed subannotations are present; and non-PII redaction rate.
+The report shows how accurately identifiers were found, how much sensitive text was removed, and how much useful clinical text was unnecessarily removed. Extra detailed measures are included when the test data supports them.
 
-External comparators follow the same boundary: run them independently, convert their outputs to canonical prediction JSONL, and pass that file to `meddeid-eval`. They are not imported into the MedDeID runtime.
+To compare another system, run it separately, convert its results to the MedDeID prediction format, and score them with `meddeid-eval`.
 
-## Record with every result
+## Keep with every result
 
-- hashes of train, validation, and test manifests;
-- initial model repository and immutable revision;
-- language profile identity and resource hashes;
-- ordered model labels and taxonomy version;
-- resolved configuration and random seeds;
+- the dataset versions and development/test split;
+- the starting model and exact version;
+- the language profile and version;
+- the annotation labels used;
+- settings and random seeds;
 - package versions and hardware/runtime information;
-- exported model checksums;
+- the saved model version;
 - exact prediction and metric commands.
 
-This information belongs in machine-readable run and output manifests. The paper or report should link to those records rather than reproduce them manually.
+MedDeID records much of this automatically. Keep those run records with the paper or report. See [artifact lineage](../concepts/artifact-lineage.md) for the detailed reproducibility fields.

@@ -1,6 +1,6 @@
 # Prepare and annotate data
 
-This workflow turns hospital exports into stable canonical records and then into reviewed primary PII annotations.
+This workflow turns hospital exports into files that reviewers can inspect and then into a reviewed dataset.
 
 ## 1. Create a local project
 
@@ -18,23 +18,23 @@ meddeid-data project create my-project notes.parquet \
 
 The same command accepts CSV, TSV, Parquet, or a directory of UTF-8 `.txt` files. Table columns other than the ID and text columns become metadata by default.
 
-The project writes pseudonymous stable document IDs into canonical artifacts. Its HMAC key and reversible source-ID mapping remain under the gitignored `private/` directory.
+MedDeID replaces source IDs with stable project IDs. The protected `private/` directory stores the project key and the mapping back to the source records.
 
 !!! danger "Keep the private directory private"
-    Losing the HMAC key breaks stable re-import identity. Publishing the source-ID map defeats pseudonymization. Back it up and protect it according to institutional policy.
+    This directory is needed to recognize the same records when data is imported again, and it can link project IDs back to the originals. Back it up and protect it according to institutional policy.
 
-## 2. Create model-initialized assignments
+## 2. Create starting annotations with a model
 
 ```bash
 meddeid batch my-project/artifacts/annotations.jsonl \
   --output my-project/assignments/primary.jsonl
 ```
 
-The predictions are ordinary current spans in an unreviewed assignment, not a second suggestion format. A reviewer keeps, corrects, relabels, deletes, or adds spans and then marks the document reviewed.
+Model predictions appear as starting annotations. A reviewer keeps, corrects, removes, or adds them and then marks the document reviewed.
 
-For fully blind annotation, begin with the empty imported records instead.
+To review without model suggestions, begin with the empty imported records instead.
 
-## 3. Review primary spans
+## 3. Review identifiers
 
 <span class="source-label">Owner: meddeid-annotate</span>
 
@@ -45,11 +45,11 @@ MEDDEID_ANNOTATIONS_PATH="$PWD/my-project/assignments/primary.jsonl" \
 npm --prefix /path/to/meddeid-annotate run dev
 ```
 
-The application writes the configured canonical JSONL in place. For every document, inspect the complete text—not just existing spans—and save even a reviewed document with zero spans.
+The application saves changes directly to the assigned file. For every document, inspect the complete text—not just the highlighted identifiers—and save it even when no identifiers are present.
 
 Never point two reviewers at the same writable assignment. Give each reviewer an isolated copy.
 
-## 4. Package a completed annotation set
+## 4. Prepare completed work for the next step
 
 ```bash
 meddeid-data project package-annotation my-project \
@@ -58,13 +58,13 @@ meddeid-data project package-annotation my-project \
   --annotator-id reviewer-7
 ```
 
-The manifest gives the file durable identity and pins its checksum and contract versions. A bare JSONL file remains usable, but a manifested set is preferable for curation and reproducibility.
+This creates a small record of who reviewed the assignment and which exact file version was completed. That record helps later steps use the intended data.
 
 ## 5. Curate only when required
 
 <span class="source-label">Owner: meddeid-curate</span>
 
-Use `meddeid-curate` when two or more independent annotation sets must be reconciled. It retains exact agreements, groups disagreements, records explicit decisions, and blocks publication until every disagreement and whole document is confirmed.
+Use `meddeid-curate` when two or more reviewers worked independently. It keeps their agreements, brings differences to a curator, and records the final decisions.
 
 ```text
 completed reviewer A + completed reviewer B
@@ -74,21 +74,35 @@ completed reviewer A + completed reviewer B
 
 One completed reviewer can skip this step. Curation is a study-design decision, not a technical requirement imposed by MedDeID.
 
-## 6. Add core-PII subannotations only for evaluation
+## 6. Add detailed labels for evaluation only
 
 <span class="source-label">Owner: meddeid-subannotate</span>
 
-`meddeid-subannotate` accepts completed primary gold from either `meddeid-annotate` or `meddeid-curate`. It partitions each primary span into reviewed character segments and exports a checksummed evaluation bundle.
+`meddeid-subannotate` marks which characters inside an identifier count as sensitive. These detailed labels help measure whether a model removed the important parts of each identifier.
 
-Do not use it for training data or prediction review. Its purpose is to define the core-PII recall denominator for detailed benchmark evaluation.
+??? info "Advanced: choose a language profile"
+    The default `neutral@1` profile makes structural suggestions without assuming a language or country. Choose a language profile once per workspace; later commands reuse that selection.
+
+    ```bash
+    cd repos/meddeid-subannotate
+    npm install --no-save ../meddeid-language-nl
+    npm run profile -- set nl-BE@1
+    npm run dev
+    ```
+
+    These commands use the current suite source checkout; the npm package is not published yet.
+
+    The selected profile must support each document's `lang` value. It is saved with the project and evaluation output. To change the profile after work has started, use a separate workspace or run `npm run profile -- migrate <profile>@<version>`; migration archives the previous work and resets review status.
+
+Do not use this step for training data or ordinary prediction review. It is only for detailed evaluation.
 
 ## Outputs and owners
 
-| Artifact | Produced by | Consumed by |
+| Output | Produced by | Used by |
 |---|---|---|
-| Imported canonical JSONL | `meddeid-data` | `meddeid`, `meddeid-annotate` |
-| Completed annotation set | `meddeid-annotate` | `meddeid-data`, optional `meddeid-curate`, training |
-| Curated primary gold | `meddeid-curate` | `meddeid-subannotate`, evaluation |
-| Evaluation bundle | `meddeid-subannotate` | `meddeid-eval` |
+| Imported project data | `meddeid-data` | `meddeid`, `meddeid-annotate` |
+| Reviewed annotations | `meddeid-annotate` | `meddeid-data`, optional `meddeid-curate`, training |
+| Curator-approved annotations | `meddeid-curate` | `meddeid-subannotate`, evaluation |
+| Detailed evaluation data | `meddeid-subannotate` | `meddeid-eval` |
 
-See [artifact lineage](../concepts/artifact-lineage.md) for the identity and checksum rules at each handoff.
+For the technical file-identification and integrity checks used between tools, see [artifact lineage](../concepts/artifact-lineage.md).

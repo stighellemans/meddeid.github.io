@@ -1,35 +1,33 @@
 # Public artifacts
 
-The [MedDeID Hugging Face collection](https://huggingface.co/collections/stighellemans/meddeid) groups the current default model and datasets. Each artifact has its own card, licence, checksums, and revision history.
+The [MedDeID Hugging Face collection](https://huggingface.co/collections/stighellemans/meddeid) contains the current default model and datasets. Each item has its own page with usage guidance, limitations, licence, and version history.
 
 ## Model
 
 ### `stighellemans/meddeid-dutch-synth`
 
-The default Dutch clinical de-identification model, trained on the synthetic development corpus. The bundle includes weights, tokenizer, encoder configuration, ordered labels, inference settings, and reproducibility metadata.
-
-Use it through the package rather than downloading individual files:
+The current Dutch clinical de-identification model, trained on synthetic data. Download and run the complete model through the MedDeID package:
 
 ```bash
 pip install meddeid
 meddeid deidentify note.txt
 ```
 
-For a reproducible or air-gapped deployment, pin an immutable Hub revision and retain the complete bundle.
+For a reproducible or air-gapped deployment, save the exact model version and keep its files together.
 
 ## Datasets
 
 ### `stighellemans/meddeid-dutch-synthetic-corpus`
 
-The complete 6,493-document synthetic model-development corpus. Its published split is `train`; users create their own development/validation partition without treating the independent benchmark as validation data.
+The complete 6,493-document synthetic dataset used for model development. Divide this dataset into training and validation data; keep the independent benchmark below separate.
 
 ### `stighellemans/meddeid-dutch-synthetic-benchmark`
 
-An independent 300-document synthetic benchmark published as `test`. Reviewed core-PII character subannotations are nested under their primary gold spans for detailed recall measurement.
+An independent set of 300 synthetic documents for final testing. It includes extra reviewed detail for measuring whether the important parts of each identifier were removed.
 
 ## Annotation guidelines
 
-The current `ProductionLabels_v1` guidelines are published in English and Dutch, as stable PDF reading copies and editable DOCX sources in the [Zenodo release](https://doi.org/10.5281/zenodo.21890965). The guidelines define annotation intent; `meddeid-core` defines the machine-readable taxonomy and validation contract.
+The current `ProductionLabels_v1` guidelines are available in English and Dutch. PDF reading copies and editable DOCX sources are included in the [Zenodo release](https://doi.org/10.5281/zenodo.21890965). They explain what annotators should mark; the precise software rules are documented separately in `meddeid-core`.
 
 ## Artifact documentation belongs with the artifact
 

@@ -171,6 +171,43 @@
   line-height: 1.5;
 }
 
+.collaboration-callout {
+  margin: 2.5rem 0 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid color-mix(in srgb, var(--meddeid-teal) 34%, transparent);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--meddeid-teal) 18%, transparent), transparent 38%),
+    color-mix(in srgb, var(--md-default-bg-color) 96%, var(--meddeid-teal));
+}
+
+.md-typeset .collaboration-callout h2 {
+  max-width: 22ch;
+  margin-top: 0;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.collaboration-callout > p:last-child {
+  margin-bottom: 0;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.76rem;
+}
+
+.collaboration-callout .md-button {
+  margin: 0.2rem 0.35rem 0.6rem 0;
+}
+
+.collaboration-callout .md-button:not(.md-button--primary) {
+  border-color: var(--md-typeset-a-color);
+  color: var(--md-typeset-a-color);
+}
+
+.collaboration-callout .md-button:not(.md-button--primary):is(:hover, :focus-visible) {
+  border-color: var(--md-typeset-a-color);
+  background: var(--md-typeset-a-color);
+  color: var(--md-default-bg-color);
+}
+
 @media screen and (max-width: 44.9844em) {
   .meddeid-hero {
     margin-top: 0;

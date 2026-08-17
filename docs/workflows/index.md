@@ -1,6 +1,6 @@
 # Workflow overview
 
-MedDeID workflows are composed from independent tools that exchange canonical JSONL and checksum-bearing manifests. Choose only the stages your project needs.
+MedDeID consists of focused tools that work together. You can use the complete workflow or choose only the steps your project needs.
 
 ## Clinical inference
 
@@ -19,27 +19,27 @@ hospital TXT / CSV / TSV / Parquet
   → meddeid-data project
   → optional model pre-annotations
   → meddeid-annotate
-  → completed canonical annotations
+  → completed reviewed annotations
 ```
 
-One completed primary annotation is technically sufficient for training. Add another reviewer and `meddeid-curate` only when your protocol requires independent review. [Prepare and annotate data](prepare-and-annotate.md).
+One completed review is sufficient for training. Add another reviewer and `meddeid-curate` only when your study requires independent review. [Prepare and annotate data](prepare-and-annotate.md).
 
-## Gold benchmark
+## Detailed evaluation
 
 ```text
-completed primary annotations
+completed reviewed annotations
   → optional meddeid-curate
   → meddeid-subannotate
-  → checksummed benchmark bundle
+  → detailed evaluation benchmark
   → meddeid-eval
 ```
 
-Subannotation records which characters inside a primary gold span count toward core-PII recall. It is an evaluation workflow, not a prerequisite for training.
+This optional step marks which parts of each identifier are essential to be detected. It supports detailed evaluation and is not required for training.
 
 ## Model adaptation
 
 ```text
-reviewed development data + sealed test gold
+reviewed development data + separate test data
   → meddeid-data prepare-training
   → meddeid-training
   → exported model bundle
@@ -47,15 +47,15 @@ reviewed development data + sealed test gold
   → meddeid-eval
 ```
 
-Use the two-stage selection/refit protocol for a publication release. A one-time `fit` is available for ordinary research experiments. [Train and evaluate](train-and-evaluate.md).
+For published research, MedDeID can first determine how long to train and then train a fresh model on all development data. A simpler one-time training run is available for ordinary experiments. [Train and evaluate](train-and-evaluate.md).
 
-## Invariants across workflows
+## What stays consistent
 
-All supported paths preserve these rules:
+Across the workflow:
 
-- offsets are half-open `[begin, end)` Unicode code-point positions;
-- `document_id` identifies a document within a dataset revision;
-- `spans` is the only canonical primary-span container;
-- inputs are not silently overwritten;
-- manifests pin lineage with SHA-256 hashes;
-- the independent test set is not used for model selection.
+- one tool's output can be used directly by the next;
+- source files are not silently overwritten;
+- MedDeID records which data, model, and settings produced a result;
+- the independent test set stays separate while training decisions are made.
+
+Implementation details are available in the [data contract](../concepts/data-contract.md) and [artifact lineage](../concepts/artifact-lineage.md) pages.

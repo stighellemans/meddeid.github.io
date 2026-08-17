@@ -46,7 +46,7 @@ Before adding a page, identify its authoritative owner:
 | Cross-suite choice, workflow, or architecture | This repository |
 | Package API, CLI, configuration, or behavior | Component repository |
 | Canonical schema and taxonomy | `meddeid-core` |
-| Dutch locale behavior and resources | `meddeid-language-nl` |
+| Language-profile behavior and locale resources | Relevant `meddeid-language-*` repository |
 | Model or dataset facts | Artifact card |
 | Migration, release locks, or private provenance | Suite coordinator |
 

@@ -1,25 +1,25 @@
 # Suite architecture
 
-MedDeID is a family of independently versioned repositories, not a runtime monorepo. Each package has one responsibility and declares every dependency it needs.
+MedDeID is a language-extensible family of independently versioned repositories, not a runtime monorepo. Each package has one responsibility and declares every dependency it needs. The current public model and language package support Dutch, while the shared contracts and workflows are designed for additional languages.
 
 ## Dependency direction
 
 ```mermaid
 flowchart TD
     CORE["meddeid-core\nschema · taxonomy · validation"]
-    NL["meddeid-language-nl\nDutch and nl-BE profile"]
+    LANG["language-profile packages\nmeddeid-language-nl today"]
     INF["meddeid\ninference · CLI · service"]
     DATA["meddeid-data\nimport · generation · splits"]
     EVAL["meddeid-eval\nmetrics · stability"]
     TRAIN["meddeid-training\nfit · refit · export"]
 
-    CORE --> NL
+    CORE --> LANG
     CORE --> INF
-    NL --> INF
+    LANG --> INF
     CORE --> DATA
-    NL --> DATA
+    LANG --> DATA
     CORE --> EVAL
-    NL --> EVAL
+    LANG --> EVAL
     CORE --> TRAIN
     EVAL --> TRAIN
     INF -. optional training extra .-> TRAIN
@@ -40,7 +40,7 @@ flowchart LR
 | Layer | Components | Owns |
 |---|---|---|
 | Contract | `meddeid-core` | Record shape, taxonomy, offsets, normalization, validation |
-| Language | `meddeid-language-nl` | Dutch rules, `nl-BE` profile, locale resources |
+| Language | `meddeid-language-*` packages | Language rules, locale profiles, and versioned resources |
 | Runtime | `meddeid` | Model loading, tokenization, decoding, post-processing, local serving |
 | Data | `meddeid-data` | Source import, stable identities, splits, synthetic generation |
 | Human review | `meddeid-annotate`, `meddeid-curate`, `meddeid-subannotate` | Primary annotation, optional reconciliation, benchmark subannotation |
@@ -51,7 +51,13 @@ flowchart LR
 
 ### Language-neutral core
 
-`meddeid-core` has no Dutch rules and no model runtime. Language behavior belongs in a separate profile package so another language can implement the same provider interface without forking the schema.
+`meddeid-core` has no language-specific rules and no model runtime. Language behavior belongs in separate profile packages, so a new language can implement the same provider interface without forking the schema, annotation tools, training flow, or evaluation contract.
+
+The first implementation is `meddeid-language-nl`, which provides Dutch rules
+and the `nl-BE` profile. A future language should live in its own independently
+versioned package, register its Python profile provider and any JavaScript
+subannotation profiles, package shared resources with provenance, and be pinned
+by the corresponding model and evaluation bundles.
 
 ### Inference is small by default
 
@@ -60,6 +66,27 @@ Installing `meddeid` does not install data generation, training, evaluation, or 
 ### Human workflows exchange files
 
 The browser applications are local tools connected by canonical files and manifests. Curation is optional, and subannotation begins only from completed primary gold.
+
+Subannotation has a language-neutral review engine and a built-in neutral
+profile. Installed `meddeid-language-*` packages may additionally expose a
+versioned semantic subannotation capability. The capability owns language and
+locale grammar, category suggestions, formatting policy, and attributed lookup
+resources; the application continues to own offsets, persistence, review state,
+rebasing, validation, and export. Profile identity, ruleset version, resources,
+and implementation hash are pinned in the resulting benchmark manifest.
+
+JavaScript language packages self-register profile selections through
+`package.json#meddeid.subannotationProfiles`; `meddeid-subannotate` discovers
+that metadata without language-specific branches. Each workspace persists one
+selection in `data/subannotation-profile.json`. Environment variables are
+temporary overrides, not the normal configuration mechanism. Switching a
+profile after review begins requires a backed-up migration that resets review
+state.
+
+Python and JavaScript capabilities may ship from the same language repository
+and consume the same versioned resource files. This avoids copying locale
+lookups between inference, generation, and subannotation while keeping their
+runtime contracts separate.
 
 ### External comparators stay external
 

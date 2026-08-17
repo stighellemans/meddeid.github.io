@@ -2,21 +2,48 @@
 
 ## Requirements
 
-- Python 3.10 or later
+- Docker Desktop or Docker Engine with Compose
 - **CPU:** 8 GiB RAM recommended
-- **Optional NVIDIA GPU:** at least 8 GiB VRAM
-- About 1 GB free disk space and internet access for the first model download
+- About 4 GB free disk space and internet access for the first image build
 
 These are practical starting points; production needs depend on workload.
 
-## De-identify a text file
+## Easiest start with Docker
+
+Clone the `meddeid` repository and run:
 
 ```bash
-pip install meddeid
+git clone https://github.com/stighellemans/meddeid.git
+cd meddeid
+./scripts/start-local.sh
+```
+
+The script generates a private API key, builds the CPU image with the pinned
+model, starts it only on your computer, and waits until it is ready. Open
+`http://127.0.0.1:8000/ui`, paste the API key from the generated `.env` file,
+then paste a note. No Python or API command is required. Technical API
+documentation remains available at `http://127.0.0.1:8000/docs`.
+
+Stop the service with `./scripts/stop-local.sh`.
+
+## Python source option
+
+The Python packages have not been released to PyPI yet. Advanced users can
+install the currently verified public source commits:
+
+```bash
+python -m pip install \
+  'meddeid-core @ git+https://github.com/stighellemans/meddeid-core.git@331ec3bd81dd0996241d8e2aad12671e05c7d0fb' \
+  'meddeid-language-nl @ git+https://github.com/stighellemans/meddeid-language-nl.git@f8aefe071ede04fcefc0c9b124b34e17923cb31e' \
+  'meddeid[server] @ git+https://github.com/stighellemans/meddeid.git@f12fdbc38bd7b2f6fb4dc6c540b769b66ea410fa'
 meddeid deidentify note.txt
 ```
 
 MedDeID downloads and caches `stighellemans/meddeid-dutch-synth` on first use, chooses a local device, and processes the note locally.
+
+`pip install meddeid` becomes the supported short form after the coordinated
+PyPI release. See [local inference](../workflows/inference.md#availability-today)
+for current deployment boundaries.
 
 ## Use the Python API
 
@@ -33,27 +60,27 @@ print(result.spans)
 deidentifier.close()
 ```
 
-## Process canonical JSONL
+## Process a batch of notes
 
 ```bash
 meddeid batch documents.jsonl --output predictions.jsonl
 ```
 
-The batch command preserves document IDs and order and writes a sidecar manifest describing inputs, model identity, runtime, language profile, and timing.
+The batch command keeps the document order and saves the information needed to identify how the results were produced.
 
-## Confirm what ran
+## Check the model version
 
 ```bash
 meddeid model-info
 ```
 
-Record the immutable model revision shown by this command when the result must be reproducible.
+Save the exact model version shown by this command when the result must be reproducible.
 
 !!! tip "Air-gapped environments"
-    Download an immutable model snapshot outside the secure environment, validate it, transfer it according to local policy, and pass the local directory with `--model`. See [local inference](../workflows/inference.md#offline-and-air-gapped-use).
+    Download a fixed copy of the model outside the secure environment, validate it, transfer it according to local policy, and pass the local directory with `--model`. See [local inference](../workflows/inference.md#offline-and-air-gapped-use).
 
 ## Next steps
 
 - [Run batch or service inference](../workflows/inference.md)
-- [Understand the JSONL contract](../concepts/data-contract.md)
+- [Learn how MedDeID structures data](../concepts/data-contract.md)
 - [Review privacy and security boundaries](../project/privacy-and-security.md)

@@ -1,5 +1,5 @@
 site_name: MedDeID
-site_description: Local de-identification, annotation, training, and evaluation for Dutch clinical text.
+site_description: A language-extensible framework for local clinical-text de-identification, annotation, training, and evaluation.
 site_url: https://meddeid.github.io/
 copyright: MedDeID contributors · Documentation licensed with the project
 
@@ -68,6 +68,9 @@ extra:
     - icon: material/archive
       link: https://huggingface.co/collections/stighellemans/meddeid
       name: MedDeID model and datasets on Hugging Face
+    - icon: material/email
+      link: mailto:stig.hellemans@uantwerpen.be
+      name: Contact the MedDeID project
 
 nav:
   - Home: index.md
@@ -77,6 +80,7 @@ nav:
   - Workflows:
       - Workflow overview: workflows/index.md
       - Local inference: workflows/inference.md
+      - Production deployment: workflows/production-deployment.md
       - Prepare and annotate data: workflows/prepare-and-annotate.md
       - Train and evaluate: workflows/train-and-evaluate.md
       - Domain adaptation: workflows/domain-adaptation.md
@@ -90,5 +94,5 @@ nav:
   - Artifacts: artifacts/index.md
   - Project:
       - Privacy and security: project/privacy-and-security.md
-      - Contributing to docs: project/contributing.md
+      - Contribute and collaborate: project/contributing.md
       - Team, funding and citation: project/licence-and-citation.md

@@ -27,7 +27,11 @@ All Python packages require Python 3.10 or later. The annotation applications re
 | Offset unit | `unicode_codepoints` | `meddeid-core` |
 | Taxonomy contract | version 1 | `meddeid-core/contracts/taxonomy.json` |
 | Taxonomy | `ProductionLabels-v1.1` | Core taxonomy plus published annotation guidelines |
-| Dutch profile | `nl-BE@1` | `meddeid-language-nl` |
+| Current public language profile | `nl-BE@1` | `meddeid-language-nl` |
+| Subannotation profile contract | `meddeid.subannotation-profile.v1` | `meddeid-subannotate` |
+| Persisted profile selection | `meddeid.subannotation-profile-selection.v1` | `meddeid-subannotate` |
+| Built-in subannotation profile | `neutral@1` / `core-pii-neutral@1` | `meddeid-subannotate` |
+| Belgian-Dutch subannotation profile | `nl-BE@1` / `core-pii-nl-be@1` | `meddeid-language-nl` |
 | Default model | `stighellemans/meddeid-dutch-synth` | Published model bundle |
 
 ## Release rule
