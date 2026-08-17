@@ -2,22 +2,25 @@
 
 Compatibility is defined by declared package ranges and machine-readable contracts, not by sibling checkout proximity.
 
-## Current staged release line
+## Current compatibility line
 
-| Component | Version | Direct MedDeID contract dependencies |
-|---|---:|---|
-| `meddeid-core` | 0.1.0 | None |
-| `meddeid-language-nl` | 0.1.0 | `meddeid-core >=0.1,<0.2` |
-| `meddeid` | 0.1.0 | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
-| `meddeid-data` | 0.2.0 | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
-| `meddeid-eval` | 0.2.0 | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
-| `meddeid-training` | 0.1.0 | `meddeid-core >=0.1,<0.2`; `meddeid-eval >=0.2,<0.3` |
-| Browser applications | 0.1.0 | Generated taxonomy contract version 1 |
+| Component | Version | Distribution | Direct MedDeID contract dependencies |
+|---|---:|---|---|
+| `meddeid-core` | 0.1.0 | PyPI | None |
+| `meddeid-language-nl` | 0.1.0 | PyPI | `meddeid-core >=0.1,<0.2` |
+| `meddeid` | 0.1.0 | PyPI and GHCR API image | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
+| `meddeid-data` | 0.2.0 | Public source only | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
+| `meddeid-eval` | 0.2.0 | Public source only | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
+| `meddeid-training` | 0.1.0 | Public source only | `meddeid-core >=0.1,<0.2`; `meddeid-eval >=0.2,<0.3` |
+| Browser applications | 0.1.0 | Public source/Dockerfile | Generated taxonomy contract version 1 |
 
 All Python packages require Python 3.10 or later. The annotation applications require Node.js 20 or later for source-based local use.
 
-!!! note "This table describes the staged source reviewed with these docs"
-    Released package metadata and immutable artifact manifests take precedence. Update this page as part of every coordinated release.
+!!! note "Published and source-only components"
+    The first three Python packages are public releases. The remaining versions
+    identify the reviewed public source line; they do not imply a PyPI or npm
+    release. Published package metadata and immutable artifact manifests take
+    precedence. Update this page as part of every coordinated release.
 
 ## Shared contracts
 

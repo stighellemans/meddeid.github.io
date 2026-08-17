@@ -2,6 +2,19 @@
 
 Use reviewed development data to train a model. Keep a separate test set untouched until the final evaluation.
 
+The data, evaluation, and training packages are not on PyPI yet. Install their
+current public source releases:
+
+```bash
+git clone https://github.com/stighellemans/meddeid-data.git
+git clone https://github.com/stighellemans/meddeid-eval.git
+git clone https://github.com/stighellemans/meddeid-training.git
+python -m pip install \
+  './meddeid-data' \
+  './meddeid-eval' \
+  './meddeid-training[train]'
+```
+
 ## Prepare data and protect the test set
 
 <span class="source-label">Owner: meddeid-data</span>
@@ -25,8 +38,6 @@ This checks that the reviewed files belong to the project and prepares three fol
 <span class="source-label">Owner: meddeid-training</span>
 
 ```bash
-pip install 'meddeid-training[train]'
-
 meddeid-train fit \
   --config configs/release.yaml \
   --data prepared/fit \
@@ -78,6 +89,10 @@ meddeid-eval score \
   --gold prepared/refit/test.jsonl \
   --predictions predictions/test.jsonl
 ```
+
+The earlier source installation includes `meddeid-eval`. Install
+`./meddeid-eval[infer,plots]` instead when its optional inference and plotting
+dependencies are needed.
 
 The report shows how accurately identifiers were found, how much sensitive text was removed, and how much useful clinical text was unnecessarily removed. Extra detailed measures are included when the test data supports them.
 

@@ -3,39 +3,36 @@
 <span class="source-label">Owner: meddeid</span>
 
 `meddeid` is the package used to de-identify text. It supports individual notes,
-batches, Python applications, and an optional internal web service. It has not
-been released to PyPI yet.
+batches, Python applications, and an optional internal web service. Release
+`0.1.0` is available from PyPI and GHCR.
 
 ## Availability today
 
-The public model and source repositories are available. Command-line, Python,
-batch, and HTTP use work from source. A clean checkout also builds a pinned,
-model-bundled CPU image and hardened local Compose service. PyPI and GHCR
-publication await the first coordinated tag. GPU-optimized releases, a public
-demo, and a managed endpoint are not available yet.
+The public model, Python packages, source repositories, and model-bundled CPU
+image are available. Command-line, Python, batch, HTTP, and hardened local
+Compose use are released. GPU-optimized releases, a public demo, and a managed
+endpoint are not available yet.
 
 For the least technical path, install Docker and run this from the `meddeid`
 repository:
 
 ```bash
+git clone https://github.com/stighellemans/meddeid.git
+cd meddeid
 ./scripts/start-local.sh
 ```
 
-This generates authentication, builds and starts the service, and prints the
-single-note browser interface and technical API documentation addresses.
+This generates authentication, pulls and starts the published image, and prints
+the single-note browser interface and technical API documentation addresses.
 
-Install the currently verified source commits together:
+Install all Python interfaces from PyPI:
 
 ```bash
-python -m pip install \
-  'meddeid-core @ git+https://github.com/stighellemans/meddeid-core.git@331ec3bd81dd0996241d8e2aad12671e05c7d0fb' \
-  'meddeid-language-nl @ git+https://github.com/stighellemans/meddeid-language-nl.git@f8aefe071ede04fcefc0c9b124b34e17923cb31e' \
-  'meddeid[server] @ git+https://github.com/stighellemans/meddeid.git@f12fdbc38bd7b2f6fb4dc6c540b769b66ea410fa'
+python -m pip install 'meddeid[server]'
 ```
 
-The shorter `pip install 'meddeid[server]'` command is the release target, not
-a currently working installation command. The component repository tracks the
-remaining release work.
+Use `meddeid[server]==0.1.0` when a reproducible installation must pin this
+release exactly.
 
 ## One note
 
@@ -90,15 +87,14 @@ Protect the service with authentication, encrypted connections, access controls,
 
 ## Containers and GPU serving
 
-The standalone Dockerfile pins the public source dependencies and model. It
-does not rely on unpublished PyPI projects or a first-start model download.
+The public `ghcr.io/stighellemans/meddeid-api:0.1.0` image pins its dependencies
+and model, supports AMD64 and ARM64, and includes an SBOM and provenance.
 Compose binds only to localhost and applies non-root, read-only,
 capability-free, bounded-process, rotating-log, API-key, and health-check
 defaults.
 
-The GHCR image becomes available after the first reviewed release tag. A
-production GPU deployment still needs a model build prepared and tested for its
-specific target hardware.
+A production GPU deployment still needs a model build prepared and tested for
+its specific target hardware.
 
 ## Offline and air-gapped use
 

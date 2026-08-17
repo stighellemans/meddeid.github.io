@@ -1,6 +1,8 @@
 # Components
 
-Each component is independently packaged, versioned, tested, licensed, and released. The grouped suite workspace is a staging aid, not a runtime dependency.
+Each component is independently packaged, versioned, tested, and licensed. The
+grouped suite workspace is a staging aid, not a runtime dependency. Distribution
+status differs by component and is stated below.
 
 <div class="component-grid" markdown>
 
@@ -9,7 +11,7 @@ Each component is independently packaged, versioned, tested, licensed, and relea
 
 Python API, CLI, batch inference, decoder, local model loading, and optional HTTP service.
 
-**Install:** `pip install meddeid`
+**PyPI:** `pip install meddeid`
 </div>
 
 <div class="component-card" markdown>
@@ -17,7 +19,7 @@ Python API, CLI, batch inference, decoder, local model loading, and optional HTT
 
 Language-neutral schema, taxonomy, ordered model labels, normalization, and offset validation.
 
-**Install:** `pip install meddeid-core`
+**PyPI:** `pip install meddeid-core`
 </div>
 
 <div class="component-card" markdown>
@@ -28,7 +30,7 @@ post-processing, semantic subannotation capability, and versioned Belgian
 lookup resources shared by those capabilities. Other languages can provide
 equivalent packages through the same profile boundaries.
 
-**Install:** `pip install meddeid-language-nl`
+**PyPI:** `pip install meddeid-language-nl`
 </div>
 
 <div class="component-card" markdown>
@@ -36,7 +38,8 @@ equivalent packages through the same profile boundaries.
 
 Hospital project import, stable identifiers, deterministic splits, synthetic generation, Synthea integration, and data validation.
 
-**Install:** `pip install meddeid-data`
+**Source release:** clone the public repository and install `.` or
+`'.[parquet]'`. Not yet on PyPI.
 </div>
 
 <div class="component-card" markdown>
@@ -44,7 +47,8 @@ Hospital project import, stable identifiers, deterministic splits, synthetic gen
 
 Ordinary fitting, publication-grade epoch selection/refit, and self-contained bundle export.
 
-**Install:** `pip install 'meddeid-training[train]'`
+**Source release:** clone the public repository and install `'.[train]'`. Not
+yet on PyPI.
 </div>
 
 <div class="component-card" markdown>
@@ -52,7 +56,8 @@ Ordinary fitting, publication-grade epoch selection/refit, and self-contained bu
 
 Exact-span and character metrics, core-PII recall, non-PII redaction, and stability analysis.
 
-**Install:** `pip install meddeid-eval`
+**Source release:** clone the public repository and install `.` or the needed
+extras. Not yet on PyPI.
 </div>
 
 <div class="component-card" markdown>
@@ -60,7 +65,7 @@ Exact-span and character metrics, core-PII recall, non-PII redaction, and stabil
 
 Local, single-assignment primary-span annotation application. Reads and writes canonical JSONL.
 
-**Run:** Node.js 20+ or its Dockerfile
+**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
 </div>
 
 <div class="component-card" markdown>
@@ -68,7 +73,7 @@ Local, single-assignment primary-span annotation application. Reads and writes c
 
 Optional multi-annotator comparison, explicit reconciliation decisions, and audited current primary gold.
 
-**Run:** Node.js 20+ or its Dockerfile
+**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
 </div>
 
 <div class="component-card" markdown>
@@ -80,7 +85,7 @@ profiles registered by installed `meddeid-language-*` packages. A workspace
 persists its selection and requires a backed-up migration to change it after
 review begins.
 
-**Run:** Node.js 20+ or its Dockerfile
+**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
 </div>
 
 </div>

@@ -4,7 +4,7 @@
 
 - Docker Desktop or Docker Engine with Compose
 - **CPU:** 8 GiB RAM recommended
-- About 4 GB free disk space and internet access for the first image build
+- About 4 GB free disk space and internet access for the first image download
 
 These are practical starting points; production needs depend on workload.
 
@@ -18,32 +18,27 @@ cd meddeid
 ./scripts/start-local.sh
 ```
 
-The script generates a private API key, builds the CPU image with the pinned
-model, starts it only on your computer, and waits until it is ready. Open
+The script generates a private API key, pulls the published CPU image with the
+pinned model, starts it only on your computer, and waits until it is ready. Open
 `http://127.0.0.1:8000/ui`, paste the API key from the generated `.env` file,
 then paste a note. No Python or API command is required. Technical API
 documentation remains available at `http://127.0.0.1:8000/docs`.
 
 Stop the service with `./scripts/stop-local.sh`.
 
-## Python source option
+## Python option
 
-The Python packages have not been released to PyPI yet. Advanced users can
-install the currently verified public source commits:
+Install the released Python API, CLI, batch runner, and optional HTTP service:
 
 ```bash
-python -m pip install \
-  'meddeid-core @ git+https://github.com/stighellemans/meddeid-core.git@331ec3bd81dd0996241d8e2aad12671e05c7d0fb' \
-  'meddeid-language-nl @ git+https://github.com/stighellemans/meddeid-language-nl.git@f8aefe071ede04fcefc0c9b124b34e17923cb31e' \
-  'meddeid[server] @ git+https://github.com/stighellemans/meddeid.git@f12fdbc38bd7b2f6fb4dc6c540b769b66ea410fa'
+python -m pip install 'meddeid[server]'
 meddeid deidentify note.txt
 ```
 
 MedDeID downloads and caches `stighellemans/meddeid-dutch-synth` on first use, chooses a local device, and processes the note locally.
 
-`pip install meddeid` becomes the supported short form after the coordinated
-PyPI release. See [local inference](../workflows/inference.md#availability-today)
-for current deployment boundaries.
+See [local inference](../workflows/inference.md#availability-today) for current
+deployment boundaries.
 
 ## Use the Python API
 

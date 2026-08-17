@@ -17,10 +17,12 @@ For a local evaluation, install Docker, clone the `meddeid` repository, and
 run:
 
 ```bash
+git clone https://github.com/stighellemans/meddeid.git
+cd meddeid
 ./scripts/start-local.sh
 ```
 
-The script creates a private API key, builds the fixed model image, starts the
+The script creates a private API key, pulls the fixed model image, starts the
 hardened Compose service on `127.0.0.1`, and prints a simple browser interface
 for single notes. It does not require Python or a Hugging Face account. Stop it with
 `./scripts/stop-local.sh`.
