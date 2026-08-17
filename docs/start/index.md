@@ -2,10 +2,9 @@
 
 MedDeID is a suite, but most users need only a small part of it. Start from the outcome you want.
 
-For inference, install `meddeid` from PyPI or use the published GHCR image.
-Data, training, evaluation, and browser applications currently use their
-individual public source repositories; their workflow pages include the exact
-installation route.
+All Python components install from PyPI. For inference, install `meddeid` or use
+the published GHCR image. Browser applications currently use their individual
+public source repositories and Dockerfiles.
 
 | Your goal | Begin with | Add only when needed |
 |---|---|---|
@@ -48,9 +47,9 @@ installation route.
 
 ## What you do not need
 
-- You do not need the grouped suite workspace. PyPI users install released
-  inference packages directly; source-only users clone only the component they
-  need.
+- You do not need the grouped suite workspace. Python users install released
+  packages directly from PyPI; browser-application users clone only the
+  component they need.
 - You do not need training, evaluation, or annotation packages for ordinary inference.
 - You do not need curation for a completed single-reviewer dataset.
 - You do not need detailed character-level benchmark labels for ordinary model training.

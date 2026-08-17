@@ -9,17 +9,17 @@ Compatibility is defined by declared package ranges and machine-readable contrac
 | `meddeid-core` | 0.1.0 | PyPI | None |
 | `meddeid-language-nl` | 0.1.0 | PyPI | `meddeid-core >=0.1,<0.2` |
 | `meddeid` | 0.1.0 | PyPI and GHCR API image | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
-| `meddeid-data` | 0.2.0 | Public source only | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
-| `meddeid-eval` | 0.2.0 | Public source only | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
-| `meddeid-training` | 0.1.0 | Public source only | `meddeid-core >=0.1,<0.2`; `meddeid-eval >=0.2,<0.3` |
+| `meddeid-data` | 0.2.0 | PyPI | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
+| `meddeid-eval` | 0.2.0 | PyPI | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
+| `meddeid-training` | 0.1.0 | PyPI | `meddeid-core >=0.1,<0.2`; `meddeid-eval >=0.2,<0.3` |
 | Browser applications | 0.1.0 | Public source/Dockerfile | Generated taxonomy contract version 1 |
 
 All Python packages require Python 3.10 or later. The annotation applications require Node.js 20 or later for source-based local use.
 
 !!! note "Published and source-only components"
-    The first three Python packages are public releases. The remaining versions
-    identify the reviewed public source line; they do not imply a PyPI or npm
-    release. Published package metadata and immutable artifact manifests take
+    All six Python packages are public releases. Browser-application versions
+    identify the reviewed public source line and do not imply an npm release.
+    Published package metadata and immutable artifact manifests take
     precedence. Update this page as part of every coordinated release.
 
 ## Shared contracts

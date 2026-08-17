@@ -7,8 +7,7 @@ This workflow turns hospital exports into files that reviewers can inspect and t
 <span class="source-label">Owner: meddeid-data</span>
 
 ```bash
-git clone https://github.com/stighellemans/meddeid-data.git
-python -m pip install './meddeid-data[parquet]'
+python -m pip install 'meddeid-data[parquet]'
 
 meddeid-data project create my-project notes.parquet \
   --namespace hospital-study \
@@ -16,9 +15,6 @@ meddeid-data project create my-project notes.parquet \
   --id-column note_id \
   --text-column note_text
 ```
-
-`meddeid-data` is not on PyPI yet. The public source repository is the current
-supported installation route.
 
 The same command accepts CSV, TSV, Parquet, or a directory of UTF-8 `.txt` files. Table columns other than the ID and text columns become metadata by default.
 

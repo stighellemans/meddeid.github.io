@@ -38,8 +38,7 @@ equivalent packages through the same profile boundaries.
 
 Hospital project import, stable identifiers, deterministic splits, synthetic generation, Synthea integration, and data validation.
 
-**Source release:** clone the public repository and install `.` or
-`'.[parquet]'`. Not yet on PyPI.
+**PyPI:** `pip install 'meddeid-data[parquet]'`
 </div>
 
 <div class="component-card" markdown>
@@ -47,8 +46,7 @@ Hospital project import, stable identifiers, deterministic splits, synthetic gen
 
 Ordinary fitting, publication-grade epoch selection/refit, and self-contained bundle export.
 
-**Source release:** clone the public repository and install `'.[train]'`. Not
-yet on PyPI.
+**PyPI:** `pip install 'meddeid-training[train]'`
 </div>
 
 <div class="component-card" markdown>
@@ -56,8 +54,7 @@ yet on PyPI.
 
 Exact-span and character metrics, core-PII recall, non-PII redaction, and stability analysis.
 
-**Source release:** clone the public repository and install `.` or the needed
-extras. Not yet on PyPI.
+**PyPI:** `pip install meddeid-eval`
 </div>
 
 <div class="component-card" markdown>
