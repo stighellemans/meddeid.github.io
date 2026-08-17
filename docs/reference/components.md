@@ -62,7 +62,10 @@ Exact-span and character metrics, core-PII recall, non-PII redaction, and stabil
 
 Local, single-assignment primary-span annotation application. Reads and writes canonical JSONL.
 
-**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
+**GHCR:** `docker pull ghcr.io/stighellemans/meddeid-annotate:0.1.0`
+
+The public source repository remains available for development; no npm release
+is required to run the application image.
 </div>
 
 <div class="component-card" markdown>
@@ -70,7 +73,10 @@ Local, single-assignment primary-span annotation application. Reads and writes c
 
 Optional multi-annotator comparison, explicit reconciliation decisions, and audited current primary gold.
 
-**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
+**GHCR:** `docker pull ghcr.io/stighellemans/meddeid-curate:0.1.0`
+
+The public source repository remains available for development; no npm release
+is required to run the application image.
 </div>
 
 <div class="component-card" markdown>
@@ -82,7 +88,10 @@ profiles registered by installed `meddeid-language-*` packages. A workspace
 persists its selection and requires a backed-up migration to change it after
 review begins.
 
-**Source release:** Node.js 20+ or its Dockerfile. Not yet on npm.
+**GHCR:** `docker pull ghcr.io/stighellemans/meddeid-subannotate:0.1.0`
+
+The public source repository remains available for development; no npm release
+is required to run the neutral-profile application image.
 </div>
 
 </div>

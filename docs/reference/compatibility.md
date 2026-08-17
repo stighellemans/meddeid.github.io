@@ -12,15 +12,29 @@ Compatibility is defined by declared package ranges and machine-readable contrac
 | `meddeid-data` | 0.2.0 | PyPI | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
 | `meddeid-eval` | 0.2.0 | PyPI | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
 | `meddeid-training` | 0.1.0 | PyPI | `meddeid-core >=0.1,<0.2`; `meddeid-eval >=0.2,<0.3` |
-| Browser applications | 0.1.0 | Public source/Dockerfile | Generated taxonomy contract version 1 |
+| Browser applications | 0.1.0 | Public GHCR images and source | Generated taxonomy contract version 1 |
 
 All Python packages require Python 3.10 or later. The annotation applications require Node.js 20 or later for source-based local use.
 
-!!! note "Published and source-only components"
-    All six Python packages are public releases. Browser-application versions
-    identify the reviewed public source line and do not imply an npm release.
-    Published package metadata and immutable artifact manifests take
-    precedence. Update this page as part of every coordinated release.
+!!! note "Published components"
+    All six Python packages and all three browser-application images are public
+    releases. Browser-application versions identify both the reviewed source
+    line and its GHCR image; they do not imply an npm release. Published package
+    metadata and immutable artifact manifests take precedence. Update this page
+    as part of every coordinated release.
+
+## Published container manifests
+
+All four images are multi-architecture manifests for `linux/amd64` and
+`linux/arm64`. Use the version tag for ordinary installation or the digest when
+an operational deployment must be byte-for-byte pinned.
+
+| Image | Version tag | Immutable manifest digest |
+|---|---|---|
+| `ghcr.io/stighellemans/meddeid-api` | `0.1.0` | `sha256:8cee6d10f68adb432802e5da1e31651d215804e42549987645281a0a0d2ab5f6` |
+| `ghcr.io/stighellemans/meddeid-annotate` | `0.1.0` | `sha256:72f3e0fa0935da41e635e668573ec9c434cc3e8e1ef97bc793917bdfe6a7b78d` |
+| `ghcr.io/stighellemans/meddeid-curate` | `0.1.0` | `sha256:8b3dde675cadc81f42a7fc34917d7b472c1556d14bc3acd1babf5bee8699875b` |
+| `ghcr.io/stighellemans/meddeid-subannotate` | `0.1.0` | `sha256:d7da6967cb29b6cf8377458959dca84626a9c0e157320b42fe8815f49e880c87` |
 
 ## Shared contracts
 

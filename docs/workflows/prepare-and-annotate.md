@@ -39,11 +39,15 @@ To review without model suggestions, begin with the empty imported records inste
 <span class="source-label">Owner: meddeid-annotate</span>
 
 ```bash
-npm install --prefix /path/to/meddeid-annotate
-
-MEDDEID_ANNOTATIONS_PATH="$PWD/my-project/assignments/primary.jsonl" \
-npm --prefix /path/to/meddeid-annotate run dev
+docker run --rm -p 127.0.0.1:8787:8787 \
+  --read-only --cap-drop ALL --security-opt no-new-privileges \
+  -e MEDDEID_ANNOTATIONS_PATH=/input/primary.jsonl \
+  -v "$PWD/my-project/assignments/primary.jsonl:/input/primary.jsonl" \
+  ghcr.io/stighellemans/meddeid-annotate:0.1.0
 ```
+
+Open `http://127.0.0.1:8787`. The versioned image is public and does not
+require a source checkout, Node.js, or a registry login.
 
 The application saves changes directly to the assigned file. For every document, inspect the complete text—not just the highlighted identifiers—and save it even when no identifiers are present.
 
@@ -74,11 +78,36 @@ completed reviewer A + completed reviewer B
 
 One completed reviewer can skip this step. Curation is a study-design decision, not a technical requirement imposed by MedDeID.
 
+Start the public curation image and open `http://127.0.0.1:8793`:
+
+```bash
+mkdir -p my-project/curation
+docker run --rm -p 127.0.0.1:8793:8793 \
+  --read-only --cap-drop ALL --security-opt no-new-privileges \
+  -v "$PWD/my-project/curation:/app/data" \
+  ghcr.io/stighellemans/meddeid-curate:0.1.0
+```
+
 ## 6. Add detailed labels for evaluation only
 
 <span class="source-label">Owner: meddeid-subannotate</span>
 
 `meddeid-subannotate` marks which characters inside an identifier count as sensitive. These detailed labels help measure whether a model removed the important parts of each identifier.
+
+The public image starts with the language-neutral profile. Point
+`ANNOTATIONS_PATH` at a completed reviewer file, or at the curator-approved
+export when curation was used:
+
+```bash
+ANNOTATIONS_PATH="$PWD/my-project/assignments/reviewer-a.jsonl"
+mkdir -p my-project/subannotation
+docker run --rm -p 127.0.0.1:8787:8787 \
+  --read-only --cap-drop ALL --security-opt no-new-privileges \
+  -e MEDDEID_ANNOTATIONS_PATH=/input/annotations.jsonl \
+  -v "$ANNOTATIONS_PATH:/input/annotations.jsonl:ro" \
+  -v "$PWD/my-project/subannotation:/app/data" \
+  ghcr.io/stighellemans/meddeid-subannotate:0.1.0
+```
 
 ??? info "Advanced: choose a language profile"
     The default `neutral@1` profile makes structural suggestions without assuming a language or country. Choose a language profile once per workspace; later commands reuse that selection.

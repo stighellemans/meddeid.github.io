@@ -3,8 +3,8 @@
 MedDeID is a suite, but most users need only a small part of it. Start from the outcome you want.
 
 All Python components install from PyPI. For inference, install `meddeid` or use
-the published GHCR image. Browser applications currently use their individual
-public source repositories and Dockerfiles.
+the published GHCR image. The browser applications also have versioned public
+GHCR images, so ordinary users do not need Node.js or a source checkout.
 
 | Your goal | Begin with | Add only when needed |
 |---|---|---|
@@ -48,8 +48,8 @@ public source repositories and Dockerfiles.
 ## What you do not need
 
 - You do not need the grouped suite workspace. Python users install released
-  packages directly from PyPI; browser-application users clone only the
-  component they need.
+  packages directly from PyPI; browser-application users pull only the GHCR
+  image they need.
 - You do not need training, evaluation, or annotation packages for ordinary inference.
 - You do not need curation for a completed single-reviewer dataset.
 - You do not need detailed character-level benchmark labels for ordinary model training.
