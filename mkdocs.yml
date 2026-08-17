@@ -1,6 +1,6 @@
 site_name: MedDeID
 site_description: A language-extensible framework for local clinical-text de-identification, annotation, training, and evaluation.
-site_url: https://meddeid.github.io/
+site_url: https://stighellemans.github.io/meddeid.github.io/
 copyright: MedDeID contributors · Documentation licensed with the project
 
 theme:

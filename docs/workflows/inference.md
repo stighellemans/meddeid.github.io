@@ -4,7 +4,7 @@
 
 `meddeid` is the package used to de-identify text. It supports individual notes,
 batches, Python applications, and an optional internal web service. Release
-`0.1.0` is available from PyPI and GHCR.
+Release `0.1.1` is available from PyPI and as the production API image on GHCR.
 
 ## Availability today
 
@@ -31,7 +31,7 @@ Install all Python interfaces from PyPI:
 python -m pip install 'meddeid[server]'
 ```
 
-Use `meddeid[server]==0.1.0` when a reproducible installation must pin this
+Use `meddeid[server]==0.1.1` when a reproducible installation must pin this
 release exactly.
 
 ## One note
@@ -87,7 +87,7 @@ Protect the service with authentication, encrypted connections, access controls,
 
 ## Containers and GPU serving
 
-The public `ghcr.io/stighellemans/meddeid-api:0.1.0` image pins its dependencies
+The public `ghcr.io/stighellemans/meddeid-api:0.1.1` image pins its dependencies
 and model, supports AMD64 and ARM64, and includes an SBOM and provenance.
 Compose binds only to localhost and applies non-root, read-only,
 capability-free, bounded-process, rotating-log, API-key, and health-check
