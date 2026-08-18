@@ -114,12 +114,13 @@ docker run --rm -p 127.0.0.1:8787:8787 \
 
     ```bash
     cd repos/meddeid-subannotate
-    npm install --no-save ../meddeid-language-nl
+    npm install --no-save @meddeid/language-nl@0.1.0
     npm run profile -- set nl-BE@1
     npm run dev
     ```
 
-    These commands use the current suite source checkout; the npm package is not published yet.
+    These commands add the optional public npm capability to a source checkout;
+    the GHCR application image remains language-neutral by default.
 
     The selected profile must support each document's `lang` value. It is saved with the project and evaluation output. To change the profile after work has started, use a separate workspace or run `npm run profile -- migrate <profile>@<version>`; migration archives the previous work and resets review status.
 

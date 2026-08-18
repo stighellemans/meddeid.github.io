@@ -101,7 +101,7 @@ is required to run the neutral-profile application image.
 | Surface | Status | Responsibility |
 |---|---|---|
 | `meddeid.github.io` | Public | This suite documentation and landing page |
-| `meddeid-demo` | Proposed | Hosted demonstration; publication is still to be decided |
+| `meddeid-demo` | Public | Hosted non-clinical demonstration for synthetic or otherwise non-sensitive text |
 | Hugging Face collection | Public artifacts | Current model, synthetic corpus, synthetic benchmark |
 | Suite `publication/` | Maintainer staging | Cards, checksums, guidelines, release manifests |
 | Suite `internal/` | Private maintainer records | Migration provenance and pre-publication lock |

@@ -44,4 +44,7 @@ This site explains how artifacts fit into suite workflows. It should not copy fu
 
 ## Public demo
 
-A public hosted demo is still under consideration and is not currently part of the release. For now, use `meddeid` locally, including for non-sensitive examples.
+The [MedDeID hosted demo](https://huggingface.co/spaces/stighellemans/meddeid-demo)
+runs the public synthetic model for non-sensitive examples. It executes on
+Hugging Face infrastructure: never paste real patient or caregiver information.
+Use `meddeid` locally for clinical text.
