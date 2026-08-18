@@ -83,15 +83,34 @@ Then score the prediction file:
 ```bash
 meddeid-eval score \
   --gold prepared/refit/test.jsonl \
-  --predictions predictions/test.jsonl
+  --predictions predictions/test.jsonl \
+  --name my-model \
+  --seconds 18.4 \
+  --device gpu \
+  --output results/my-model.json
 ```
 
 The installation above includes plotting support. Add the `infer` extra when
 evaluation itself must run model inference.
 
-The report shows how accurately identifiers were found, how much sensitive text was removed, and how much useful clinical text was unnecessarily removed. Extra detailed measures are included when the test data supports them.
+The score artifact reports exact-span and character metrics, core-PII recall,
+non-PII redaction, and privacy-safe aggregate tables by gold label,
+sub-annotation category, and predicted label when the test data supports them.
 
 To compare another system, run it separately, convert its results to the MedDeID prediction format, and score them with `meddeid-eval`.
+
+Render the resulting score artifacts together:
+
+```bash
+meddeid-eval plot \
+  --scores results/my-model.json results/comparator.json \
+  --output-dir results/plots
+```
+
+PNG and searchable vector PDF figures are written by default. The figure family
+includes a performance overview, label and sub-annotation heatmaps, non-PII
+redactions by predicted label, exact-boundary label confusion, and an
+accuracy-versus-runtime plot when timing metadata was recorded.
 
 ## Keep with every result
 

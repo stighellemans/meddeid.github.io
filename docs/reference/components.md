@@ -46,17 +46,19 @@ Hospital project import, stable identifiers, deterministic splits, synthetic gen
 <div class="component-card" markdown>
 ### `meddeid-training`
 
-Ordinary fitting, publication-grade epoch selection/refit, and self-contained bundle export.
+Ordinary fitting, publication-grade epoch selection/refit, readable training
+diagnostics, and self-contained bundle export.
 
-**PyPI:** `pip install 'meddeid-training[train]'`
+**PyPI:** `pip install 'meddeid-training[train,plots]'`
 </div>
 
 <div class="component-card" markdown>
 ### `meddeid-eval`
 
-Exact-span and character metrics, core-PII recall, non-PII redaction, and stability analysis.
+Exact-span and character metrics, core-PII recall, non-PII redaction, detailed
+comparison figures, and note-clustered stability analysis.
 
-**PyPI:** `pip install meddeid-eval`
+**PyPI:** `pip install 'meddeid-eval[plots]'`
 </div>
 
 <div class="component-card" markdown>
