@@ -18,7 +18,7 @@ Collaboration does not require sharing patient text publicly. Hospitals can run 
 Adding a language is more than translating labels. A credible language addition needs:
 
 1. **A defined clinical setting.** Agree on the language and region, participating institutions, document types, identifier categories, and intended use.
-2. **Adapted annotation guidelines.** Start from the published [MedDeID annotation guidelines](https://doi.org/10.5281/zenodo.21890965), adapt the examples and difficult cases, and test them with clinical annotators.
+2. **Adapted annotation guidelines.** Start from the published [MedDeID annotation guidelines](https://doi.org/10.5281/zenodo.21992866), adapt the examples and difficult cases, and test them with clinical annotators.
 3. **Representative, governed data.** Prepare training and validation data plus a separate final test set. Include different note types, source systems, writing styles, and uncommon identifiers.
 4. **A strong, compact base encoder.** Select an encoder with good coverage of the language and clinical vocabulary. It should have a suitable licence and run with acceptable memory use and speed on local institutional hardware. Compare promising encoders before committing to model training.
 5. **Language-specific resources.** Package local names, addresses, dates, identifiers, and processing rules in a separate `meddeid-language-*` profile so they can improve without changing the shared tools.

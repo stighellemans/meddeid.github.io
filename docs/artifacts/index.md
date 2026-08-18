@@ -27,7 +27,7 @@ An independent set of 300 synthetic documents for final testing. It includes ext
 
 ## Annotation guidelines
 
-The current `ProductionLabels_v1` guidelines are available in English and Dutch. PDF reading copies and editable DOCX sources are included in the [Zenodo release](https://doi.org/10.5281/zenodo.21890965). They explain what annotators should mark; the precise software rules are documented separately in `meddeid-core`.
+The current `ProductionLabels_v1` guidelines are available in English and Dutch. PDF reading copies and editable DOCX sources are included in the [Zenodo v2 release](https://doi.org/10.5281/zenodo.21992866). They explain what annotators should mark; the precise software rules are documented separately in `meddeid-core`.
 
 ## Artifact documentation belongs with the artifact
 

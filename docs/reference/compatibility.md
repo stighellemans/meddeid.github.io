@@ -7,7 +7,7 @@ Compatibility is defined by declared package ranges and machine-readable contrac
 | Component | Version | Distribution | Direct MedDeID contract dependencies |
 |---|---:|---|---|
 | `meddeid-core` | 0.1.1 | PyPI | None |
-| `meddeid-language-nl` | 0.1.1 | PyPI | `meddeid-core >=0.1,<0.2` |
+| `meddeid-language-nl` | 0.1.1 / npm 0.1.0 | PyPI and npm | `meddeid-core >=0.1,<0.2` |
 | `meddeid` | 0.1.1 | PyPI and GHCR API image | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
 | `meddeid-data` | 0.2.1 | PyPI | `meddeid-core >=0.1,<0.2`; `meddeid-language-nl >=0.1,<0.2` |
 | `meddeid-eval` | 0.2.1 | PyPI | `meddeid-core >=0.1`; `meddeid-language-nl >=0.1` |
@@ -17,11 +17,12 @@ Compatibility is defined by declared package ranges and machine-readable contrac
 All Python packages require Python 3.10 or later. The annotation applications require Node.js 20 or later for source-based local use.
 
 !!! note "Published components"
-    All six Python packages and all three browser-application images are public
-    releases. Browser-application versions identify both the reviewed source
-    line and its GHCR image; they do not imply an npm release. Published package
-    metadata and immutable artifact manifests take precedence. Update this page
-    as part of every coordinated release.
+    All six Python packages, the optional `@meddeid/language-nl` JavaScript
+    capability, and all four container images are public releases.
+    Browser-application versions identify both the reviewed source line and its
+    GHCR image; the npm release is the independently versioned Dutch-language
+    capability. Published package metadata and immutable artifact manifests
+    take precedence. Update this page as part of every coordinated release.
 
 ## Published container manifests
 

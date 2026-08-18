@@ -31,6 +31,8 @@ lookup resources shared by those capabilities. Other languages can provide
 equivalent packages through the same profile boundaries.
 
 **PyPI:** `pip install meddeid-language-nl`
+
+**npm:** `npm install @meddeid/language-nl@0.1.0`
 </div>
 
 <div class="component-card" markdown>
